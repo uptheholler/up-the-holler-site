@@ -1,0 +1,95 @@
+# Paste these under the existing `collections:` key in your Decap config.yml.
+# media_folder / public_folder assume your current setup — adjust if they differ.
+
+  - name: hauls
+    label: "Hauls (cleanup log)"
+    label_singular: "Haul"
+    folder: content/watershed/hauls
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{fields.reach}}"
+    summary: "{{date}} — {{location}} ({{weight_lb}} lb)"
+    sortable_fields: [date, weight_lb]
+    fields:
+      - { name: date, label: Date, widget: date, format: "YYYY-MM-DD" }
+      - name: reach
+        label: Reach
+        widget: select
+        options:
+          - { label: "Ok Run", value: "ok-run" }
+          - { label: "The property", value: "property" }
+          - { label: "McMahon Creek", value: "mcmahon" }
+      - { name: location, label: "Where exactly", widget: string, hint: "Plain language. Don't give coordinates near a house." }
+      - { name: weight_lb, label: "Weight (lb)", widget: number, value_type: int, min: 0 }
+      - { name: bags, label: "Bags", widget: number, value_type: int, required: false, min: 0 }
+      - { name: notable, label: "Notable items", widget: list, required: false, hint: "One per line — tires, appliances, drums." }
+      - { name: photos, label: Photos, widget: list, required: false, field: { name: image, label: Photo, widget: image } }
+      - { name: body, label: Notes, widget: markdown, required: false }
+
+  - name: photo_points
+    label: "Photo points"
+    label_singular: "Photo point"
+    folder: content/watershed/photo-points
+    create: true
+    identifier_field: id
+    slug: "{{fields.id}}"
+    summary: "{{id}} — {{name}}"
+    fields:
+      - { name: id, label: "Station ID", widget: string, pattern: ['^PP-\d{2}$', "Use the form PP-01"] }
+      - { name: name, label: "Station name", widget: string, hint: "What you're looking at and which way. e.g. 'Ok Run confluence, looking upstream'" }
+      - name: reach
+        label: Reach
+        widget: select
+        options:
+          - { label: "Ok Run", value: "ok-run" }
+          - { label: "The property", value: "property" }
+          - { label: "McMahon Creek", value: "mcmahon" }
+      - { name: bearing_deg, label: "Bearing (°)", widget: number, value_type: int, min: 0, max: 360, required: false }
+      - { name: established, label: Established, widget: date, format: "YYYY-MM" }
+      - { name: publish_coords, label: "Publish coordinates", widget: boolean, default: false, hint: "Leave off for anything near a residence." }
+      - { name: lat, label: Latitude, widget: number, value_type: float, required: false }
+      - { name: lng, label: Longitude, widget: number, value_type: float, required: false }
+      - name: visits
+        label: Visits
+        label_singular: Visit
+        widget: list
+        summary: "{{fields.date}}"
+        fields:
+          - { name: date, label: Date, widget: date, format: "YYYY-MM" }
+          - { name: image, label: Photo, widget: image }
+          - { name: note, label: "What changed", widget: string, required: false }
+
+  - name: dispatches
+    label: Dispatches
+    label_singular: Dispatch
+    folder: content/watershed/dispatches
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{date}} — {{title}}"
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: date, label: Date, widget: datetime, format: "YYYY-MM-DD" }
+      - name: reach
+        label: Reach
+        widget: select
+        required: false
+        options:
+          - { label: "Ok Run", value: "ok-run" }
+          - { label: "The property", value: "property" }
+          - { label: "McMahon Creek", value: "mcmahon" }
+      - { name: excerpt, label: Excerpt, widget: text, hint: "One or two sentences for the index." }
+      - { name: cover, label: "Cover image", widget: image, required: false }
+      - { name: people_consented, label: "Anyone identifiable has agreed to appear", widget: boolean, default: false, hint: "Leave unchecked and the post stays a draft." }
+      - { name: draft, label: Draft, widget: boolean, default: true }
+      - { name: body, label: Body, widget: markdown }
+
+  - name: reaches
+    label: Reaches
+    label_singular: Reach
+    folder: content/watershed/reaches
+    create: false
+    fields:
+      - { name: title, label: Title, widget: string }
+      - { name: subtitle, label: Subtitle, widget: string, required: false }
+      - { name: order, label: "Sort order", widget: number, value_type: int }
+      - { name: body, label: Body, widget: markdown }

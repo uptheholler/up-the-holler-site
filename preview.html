@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Watershed — Up the Holler</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --shale:#21272A;
+  --paper:#E3E6E0;
+  --paper-2:#D6DAD3;
+  --creek:#2F5F5C;
+  --ochre:#B0682A;
+  --sandstone:#8A8779;
+
+  --display:'Bricolage Grotesque',system-ui,sans-serif;
+  --body:'Newsreader',Georgia,serif;
+  --data:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--shale);
+  font-family:var(--body);font-size:19px;line-height:1.6;font-weight:300;
+}
+.wrap{max-width:60rem;margin:0 auto;padding:0 1.5rem}
+
+/* ---------- masthead ---------- */
+.mast{padding:3rem 0 0}
+.eyebrow{
+  font-family:var(--data);font-size:.7rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--sandstone);
+}
+h1{
+  font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,10vw,5.5rem);
+  line-height:.92;letter-spacing:-.03em;margin:.6rem 0 0;
+}
+h1 em{font-style:normal;display:block;color:var(--creek)}
+.standfirst{max-width:34rem;margin:1.5rem 0 0;font-size:1.15rem}
+
+/* ---------- signature: stream schematic ---------- */
+.schematic{margin:2.5rem 0 0}
+.schematic svg{width:100%;height:auto;display:block;overflow:visible}
+.reachline{fill:none;stroke:var(--creek);stroke-linecap:round}
+.trib{fill:none;stroke:var(--creek);stroke-linecap:round;opacity:.75}
+.node{fill:var(--paper);stroke:var(--shale);stroke-width:2}
+.node-home{fill:var(--ochre);stroke:var(--shale);stroke-width:2}
+.nlabel{font-family:var(--data);font-size:11px;font-weight:600;letter-spacing:.06em;fill:var(--shale)}
+.nsub{font-family:var(--data);font-size:9px;fill:var(--sandstone);letter-spacing:.06em}
+.gnode{cursor:pointer}
+.gnode:hover .node{fill:var(--creek)}
+.gnode:focus-visible{outline:2px solid var(--ochre);outline-offset:4px}
+
+/* ---------- record block ---------- */
+.record{
+  margin:2.5rem 0 0;border-top:1.5px solid var(--shale);border-bottom:1px solid var(--paper-2);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+}
+.record div{padding:.9rem 0;border-right:1px solid var(--paper-2)}
+.record div:last-child{border-right:0}
+.record dt{font-family:var(--data);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sandstone);margin:0}
+.record dd{font-family:var(--data);font-size:1rem;font-weight:600;margin:.35rem 0 0}
+
+/* ---------- sections ---------- */
+section{padding:4rem 0 0}
+h2{
+  font-family:var(--display);font-weight:600;font-size:1.9rem;letter-spacing:-.02em;
+  margin:0 0 .25rem;
+}
+.sechead{display:flex;align-items:baseline;gap:.9rem;border-bottom:1.5px solid var(--shale);padding-bottom:.5rem;margin-bottom:1.6rem}
+.sechead .count{font-family:var(--data);font-size:.75rem;color:var(--sandstone);margin-left:auto;white-space:nowrap}
+
+/* ---------- hauls ---------- */
+.tally{display:flex;align-items:flex-end;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.tallynum{font-family:var(--display);font-weight:800;font-size:clamp(3rem,14vw,6rem);line-height:.85;color:var(--ochre);letter-spacing:-.04em}
+.tallylab{font-family:var(--data);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--sandstone);padding-bottom:.6rem}
+.accum{display:flex;height:14px;width:100%;gap:2px;margin-bottom:1.75rem}
+.accum span{background:var(--ochre);opacity:.55;transition:opacity .2s}
+.accum span:hover{opacity:1}
+.haul{display:grid;grid-template-columns:5.5rem 1fr auto;gap:.75rem;padding:.85rem 0;border-bottom:1px solid var(--paper-2);align-items:baseline}
+.haul time,.haul .wt{font-family:var(--data);font-size:.8rem}
+.haul .wt{font-weight:600;text-align:right;white-space:nowrap}
+.haul .where{font-size:1rem}
+.haul .items{font-family:var(--data);font-size:.7rem;color:var(--sandstone);display:block;margin-top:.2rem;letter-spacing:.04em}
+
+/* ---------- photo points ---------- */
+.pp{border-top:1.5px solid var(--shale);padding-top:1rem;margin-bottom:2.5rem}
+.pphead{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;align-items:baseline}
+.ppid{font-family:var(--data);font-size:.7rem;font-weight:600;letter-spacing:.14em;color:var(--ochre)}
+.ppname{font-family:var(--display);font-weight:600;font-size:1.1rem}
+.ppmeta{font-family:var(--data);font-size:.68rem;color:var(--sandstone);letter-spacing:.06em}
+.frames{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-top:1rem}
+.frame{background:var(--paper-2);aspect-ratio:4/3;position:relative;display:flex;align-items:center;justify-content:center}
+.frame span{font-family:var(--data);font-size:.65rem;color:var(--sandstone);letter-spacing:.1em}
+.frame b{position:absolute;left:.5rem;bottom:.5rem;font-family:var(--data);font-size:.65rem;font-weight:600;background:var(--paper);padding:.15rem .4rem;letter-spacing:.06em}
+
+/* ---------- dispatches ---------- */
+.disp{padding:1.25rem 0;border-bottom:1px solid var(--paper-2);display:block;text-decoration:none;color:inherit}
+.disp:hover .dtitle{color:var(--creek)}
+.dmeta{font-family:var(--data);font-size:.68rem;letter-spacing:.1em;color:var(--sandstone);text-transform:uppercase}
+.dtitle{font-family:var(--display);font-weight:600;font-size:1.35rem;letter-spacing:-.01em;margin:.3rem 0 .35rem;transition:color .15s}
+.dexc{font-size:1rem;color:#3a4145;margin:0;max-width:44rem}
+
+footer{margin-top:5rem;padding:2rem 0 4rem;border-top:1.5px solid var(--shale)}
+.note{font-family:var(--data);font-size:.7rem;line-height:1.8;color:var(--sandstone);letter-spacing:.04em;max-width:40rem}
+
+@media (max-width:640px){
+  body{font-size:18px}
+  .frames{grid-template-columns:1fr}
+  .haul{grid-template-columns:4.5rem 1fr;}
+  .haul .wt{grid-column:2;text-align:left}
+  .record div{border-right:0;border-bottom:1px solid var(--paper-2)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <p class="eyebrow">McMahon Creek Basin · Belmont County, Ohio</p>
+    <h1>The Holler<em>Ground Record</em></h1>
+    <p class="standfirst">Ohio EPA sampled this basin in 2009 and is sampling it again now. This is the part in between — what two people who live on Ok Run saw, hauled out, and wrote down.</p>
+  </header>
+
+  <!-- SIGNATURE: the watershed as its own navigation -->
+  <div class="schematic" role="navigation" aria-label="Watershed reaches">
+    <svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" aria-hidden="false">
+      <title>Schematic of Ok Run joining McMahon Creek, flowing to the Ohio River</title>
+      <path class="reachline" d="M40 40 C 160 60, 200 120, 330 130 S 540 175, 660 200" stroke-width="2.5"/>
+      <path class="trib" d="M120 205 C 200 195, 250 160, 330 130" stroke-width="5"/>
+      <path class="trib" d="M60 150 C 130 155, 170 150, 230 143" stroke-width="1.2" opacity=".4"/>
+      <path class="trib" d="M420 90 C 460 115, 480 135, 520 152" stroke-width="1.2" opacity=".4"/>
+
+      <g class="gnode" tabindex="0" role="link" aria-label="Ok Run reach">
+        <circle class="node" cx="120" cy="205" r="7"/>
+        <text class="nlabel" x="120" y="230" text-anchor="middle">OK RUN</text>
+      </g>
+      <g class="gnode" tabindex="0" role="link" aria-label="The property">
+        <circle class="node-home" cx="228" cy="171" r="8"/>
+        <text class="nlabel" x="228" y="196" text-anchor="middle">THE PROPERTY</text>
+        <text class="nsub" x="228" y="209" text-anchor="middle">HOME SITE</text>
+      </g>
+      <g class="gnode" tabindex="0" role="link" aria-label="Confluence">
+        <circle class="node" cx="330" cy="130" r="6"/>
+        <text class="nsub" x="330" y="112" text-anchor="middle">CONFLUENCE</text>
+      </g>
+      <g class="gnode" tabindex="0" role="link" aria-label="McMahon Creek mainstem">
+        <circle class="node" cx="500" cy="163" r="7"/>
+        <text class="nlabel" x="500" y="188" text-anchor="middle">McMAHON CREEK</text>
+      </g>
+      <g class="gnode" tabindex="0" role="link" aria-label="Ohio River">
+        <circle class="node" cx="660" cy="200" r="5"/>
+        <text class="nsub" x="655" y="222" text-anchor="end">OHIO RIVER</text>
+      </g>
+      <text class="nsub" x="40" y="30">HEADWATERS · UNION TWP</text>
+    </svg>
+  </div>
+
+  <dl class="record">
+    <div><dt>Mainstem length</dt><dd>28.1 mi</dd></div>
+    <div><dt>Drainage area</dt><dd>91 sq mi</dd></div>
+    <div><dt>USGS gages</dt><dd>Glencoe · Bellaire</dd></div>
+    <div><dt>Record begins</dt><dd>2026</dd></div>
+  </dl>
+
+  <section>
+    <div class="sechead"><h2>Hauls</h2><span class="count">14 pickups logged</span></div>
+    <div class="tally">
+      <span class="tallynum">3,140</span>
+      <span class="tallylab">pounds off the ground<br>since March 2026</span>
+    </div>
+    <div class="accum" aria-hidden="true">
+      <span style="flex:180"></span><span style="flex:310"></span><span style="flex:95"></span>
+      <span style="flex:420"></span><span style="flex:260"></span><span style="flex:610"></span>
+      <span style="flex:140"></span><span style="flex:355"></span><span style="flex:770"></span>
+    </div>
+
+    <div class="haul"><time>2026-07-12</time><span class="where">Ok Run, lower crossing<span class="items">4 tires · water heater · 2 drums</span></span><span class="wt">770 lb</span></div>
+    <div class="haul"><time>2026-06-28</time><span class="where">Township road pull-off<span class="items">household bags · carpet</span></span><span class="wt">355 lb</span></div>
+    <div class="haul"><time>2026-06-09</time><span class="where">Hillside above the barn<span class="items">fence wire · glass</span></span><span class="wt">140 lb</span></div>
+    <div class="haul"><time>2026-05-24</time><span class="where">Ok Run, upper reach<span class="items">appliance shell · 6 tires</span></span><span class="wt">610 lb</span></div>
+  </section>
+
+  <section>
+    <div class="sechead"><h2>Photo points</h2><span class="count">6 stations · quarterly</span></div>
+
+    <div class="pp">
+      <div class="pphead">
+        <div><span class="ppid">PP-03</span> <span class="ppname">Ok Run confluence, looking upstream</span></div>
+        <span class="ppmeta">BRG 315° · EST. 2026-03</span>
+      </div>
+      <div class="frames">
+        <div class="frame"><span>PHOTO</span><b>2026-03</b></div>
+        <div class="frame"><span>PHOTO</span><b>2026-07</b></div>
+      </div>
+    </div>
+
+    <div class="pp">
+      <div class="pphead">
+        <div><span class="ppid">PP-01</span> <span class="ppname">Old haul road, west bank</span></div>
+        <span class="ppmeta">BRG 090° · EST. 2026-03</span>
+      </div>
+      <div class="frames">
+        <div class="frame"><span>PHOTO</span><b>2026-03</b></div>
+        <div class="frame"><span>PHOTO</span><b>2026-07</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sechead"><h2>Dispatches</h2><span class="count">from the home site</span></div>
+    <a class="disp" href="#">
+      <p class="dmeta">2026-07-18 · Ok Run</p>
+      <p class="dtitle">The run came up four feet and put the tires back</p>
+      <p class="dexc">Every flood is a negotiation. We pulled four tires out of the lower crossing in May and the July high water brought three more down from somewhere upstream we haven't walked yet.</p>
+    </a>
+    <a class="disp" href="#">
+      <p class="dmeta">2026-06-02 · The property</p>
+      <p class="dtitle">Ten years of somebody else's fill</p>
+      <p class="dexc">What's buried in a hillside in this county is rarely a mystery, only a matter of how deep you're willing to dig to confirm it.</p>
+    </a>
+  </section>
+
+  <footer>
+    <p class="note">
+      A personal project, on personal time, on private land. Not affiliated with or endorsed by any employer or agency.<br><br>
+      Locations near residences are given by reach, not coordinate. Neighbors appear here only with permission, and anything can come down on request.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
