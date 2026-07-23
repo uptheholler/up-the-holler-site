@@ -1,0 +1,62 @@
+{
+  "hauls": [
+    {
+      "date": "2026-07-12",
+      "reach": "ok-run",
+      "location": "Lower crossing",
+      "weight_lb": 770,
+      "bags": 6,
+      "notable": ["4 tires", "water heater", "2 drums"]
+    },
+    {
+      "date": "2026-06-28",
+      "reach": "property",
+      "location": "Township road pull-off",
+      "weight_lb": 355,
+      "bags": 9,
+      "notable": ["household bags", "carpet"]
+    },
+    {
+      "date": "2026-05-24",
+      "reach": "ok-run",
+      "location": "Upper reach",
+      "weight_lb": 610,
+      "bags": 4,
+      "notable": ["appliance shell", "6 tires"]
+    }
+  ],
+
+  "photo_points": [
+    {
+      "id": "PP-01",
+      "name": "Ok Run confluence, looking upstream",
+      "reach": "ok-run",
+      "bearing_deg": 315,
+      "established": "2026-03",
+      "visits": [
+        { "date": "2026-03", "image": "", "note": "Station established. Right bank bare." },
+        { "date": "2026-07", "image": "", "note": "Post-flood scour on right bank." }
+      ]
+    },
+    {
+      "id": "PP-02",
+      "name": "Old haul road, west bank",
+      "reach": "property",
+      "bearing_deg": 90,
+      "established": "2026-03",
+      "visits": [
+        { "date": "2026-03", "image": "", "note": "" }
+      ]
+    }
+  ],
+
+  "dispatches": [
+    {
+      "date": "2026-07-18",
+      "reach": "ok-run",
+      "title": "The run came up four feet and put the tires back",
+      "excerpt": "Every flood is a negotiation. Replace this with the first real one.",
+      "url": ""
+    }
+  ]
+}
